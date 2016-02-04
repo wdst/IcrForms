@@ -44,7 +44,7 @@ Class IcrForms {
 
         foreach($data as $val){
 
-            $field = new IcrFormFields($val['CODE'], $val, $builder);
+            $field = new IcrFormField($val['CODE'], $val, $builder);
 
             //$field->loadAttrs($val);
 
@@ -66,5 +66,22 @@ Class IcrForms {
     {
         $name = strtoupper($name);
         return $this->$name;
+    }
+
+    public function buildForms($useforms = false)
+    {
+        $html = '';
+        $html .= $useforms ? '<form method="post" action="/index.php?r=site/entry" id="w0">' : '';
+
+        foreach($this->fields as $val){
+            $html .= $val->html;
+        }
+
+        $html .= $useforms ? '</form>' : '';;
+
+        $html .= $useforms ? '<div class="form-group">
+        <button class="btn btn-primary" type="submit">Отправить</button></div>' : '';
+        
+        return $html;
     }
 }

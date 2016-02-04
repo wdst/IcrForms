@@ -28,6 +28,6 @@ Class Model extends AbstractModel{
     {
         //$client = new JsonRPCClient('http://api.json/index.php');
         //$this->client->debug = 1;
-        return $this->client->getFormFields($form_id);
+        return $this->client->getDataFields();
     }   
 }

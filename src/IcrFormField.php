@@ -6,14 +6,16 @@ class IcrFormField {
 
     public $code;
     protected $attrs;
-    protected $html;
+    public $html;
 
     public function __construct($code, $val, iFormBuilder $builder) {
         $this->code = $code;
 
-        $this->loadAttrs($attrs);
+        $this->loadAttrs($val);
 
-        //$this->html = $builder->buildHtml($this->attrs_class, $attrs);
+
+        //print_r($this->attrs['ATTR_CLASS']);
+        $this->html = $builder->buildHtml($this->attrs['ATTR_CLASS'], $val);
     }
 
     public function __get($name)

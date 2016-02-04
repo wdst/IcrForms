@@ -20,4 +20,8 @@ $IcrForms = new \IcrForms\IcrForms(new \IcrForms\Model('http://api.json/index.ph
 
 
 //print_r($IcrForms->getFieldsList());
-print_r($IcrForms->fields);
+//print_r($IcrForms->fields);
+
+//print_r($IcrForms->fields);
+
+print_r($IcrForms->buildForms());
