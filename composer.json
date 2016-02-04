@@ -1,0 +1,14 @@
+{
+    "name": "wdst/IcrForms",
+    "version": "1.0.0",
+    "description": "",
+    "require": {
+        "php": ">=5.4.0",
+        "fguillot/json-rpc": "@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "wdst\\IcrForms\\": ""
+        }
+    }
+}
