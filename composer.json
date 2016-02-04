@@ -1,6 +1,6 @@
 {
     "name": "wdst/IcrForms",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "description": "",
     "require": {
         "php": ">=5.4.0",
