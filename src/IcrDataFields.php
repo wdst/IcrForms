@@ -1,6 +1,6 @@
 <?php
 
-namespace IcrForms;
+namespace wdst\IcrForms;
 
 Class IcrDataFields extends AbstractDataFields {
     

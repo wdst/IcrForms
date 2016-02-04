@@ -1,7 +1,9 @@
 <?php
 
-namespace IcrForms;
+namespace wdst\IcrForms;
+
 use JsonRPC\Client as JsonRPCClient;
+
 /**
  * Description of AbstractModel
  *
@@ -15,9 +17,5 @@ abstract class AbstractModel {
         $this->client = new JsonRPCClient($url);
     }
 
-    /*abstract public function getTypes($param);
-    abstract public function getObject($param);*/
     abstract public function save();
-
-
 }

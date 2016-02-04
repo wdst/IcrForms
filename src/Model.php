@@ -1,6 +1,6 @@
 <?php
 
-namespace IcrForms;
+namespace wdst\IcrForms;
 use JsonRPC\Client as JsonRPCClient;
 
 Class Model extends AbstractModel{
@@ -23,11 +23,11 @@ Class Model extends AbstractModel{
         //$this->client->debug = 1;
         return $this->client->getFormFields($form_id);
     }
-    
+
     public function getDataFields()
     {
         //$client = new JsonRPCClient('http://api.json/index.php');
         //$this->client->debug = 1;
         return $this->client->getDataFields();
-    }   
+    }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace IcrForms;
+namespace wdst\IcrForms;
 
 class IcrFormField {
 
     public $code;
-    protected $attrs;
+    protected $attrs, $val, $builder;
     public $html;
 
     public function __construct($code, $val, iFormBuilder $builder) {
@@ -13,9 +13,8 @@ class IcrFormField {
 
         $this->loadAttrs($val);
 
-
-        //print_r($this->attrs['ATTR_CLASS']);
-        $this->html = $builder->buildHtml($this->attrs['ATTR_CLASS'], $val);
+        $this->val = $val;
+        $this->builder = $builder;
     }
 
     public function __get($name)
@@ -36,8 +35,17 @@ class IcrFormField {
         }
     }
 
-    /*public function builder(AbstractDataFields $dataBuilder)
+    public function build($params = null, $types = null)
     {
-        $builder = new IcrFormBuilder()
-    }*/
+        if(!empty($params) && is_array($params)){
+            $this->builder->params = $params;
+        }
+
+        if(!empty($types) && is_array($types)){
+            $this->builder->types = $types;
+        }
+
+        $this->html = $this->builder->buildHtml($this->attrs['ATTR_CLASS'], $this->val);
+        return $this->html;
+    }
 }

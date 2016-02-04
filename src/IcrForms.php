@@ -1,6 +1,6 @@
 <?php
 
-namespace IcrForms;
+namespace wdst\IcrForms;
 
 Class IcrForms {
 
@@ -10,12 +10,19 @@ Class IcrForms {
         'FORM_NUMBER', 'FORM_NAME_RUS', 'FORM_NAME_ENG'];
 
     public $fields;
+    public $params = null;
+    public $types = null;
 
     public function __construct(AbstractModel $IcrModel, $formCode)
     {
         $this->Model = $IcrModel;
         $this->code = $formCode;
 
+        $this->reload();
+    }
+
+    public function reload()
+    {
         $this->loadForm();
         $this->loadDataFields();
         $this->loadFields();
@@ -68,20 +75,20 @@ Class IcrForms {
         return $this->$name;
     }
 
-    public function buildForms($useforms = false)
+    public function buildForms($params = null, $types = null, $useforms = false)
     {
         $html = '';
         $html .= $useforms ? '<form method="post" action="/index.php?r=site/entry" id="w0">' : '';
 
         foreach($this->fields as $val){
-            $html .= $val->html;
+            $html .= $val->build($params, $types);
         }
 
         $html .= $useforms ? '</form>' : '';;
 
         $html .= $useforms ? '<div class="form-group">
         <button class="btn btn-primary" type="submit">Отправить</button></div>' : '';
-        
+
         return $html;
     }
 }
