@@ -35,8 +35,8 @@ Class IcrFormBuilder implements iFormBuilder {
 
     public function input($attrs, $params = null)
     {
-        $name = $attrs['OT_CODE'];
-        $id = $attrs['OT_CODE'];
+        $name = $attrs['CODE'];
+        $id = $attrs['CODE'];
         $default = $attrs['DEFAULT_VALUE'];
         $help = '';$required = '';$star='';$placeholder='';
 
