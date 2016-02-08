@@ -13,7 +13,7 @@ Class IcrForms {
     public $params = null;
     public $types = null;
 
-    public function __construct(AbstractModel $IcrModel, $formCode)
+    public function __construct(AbstractIcrModel $IcrModel, $formCode)
     {
         $this->Model = $IcrModel;
         $this->code = $formCode;
