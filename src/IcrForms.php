@@ -53,8 +53,10 @@ Class IcrForms {
 
             $field = new IcrFormField($val['CODE'], $val, $builder);
 
-            //$field->loadAttrs($val);
-
+            if($val['ATTR_CLASS'] == 'X'){
+                $field->refList = $this->loadRefFieldList($val['REF_TO_OBJ_TYPE_ID']);
+            }
+            
             $this->fields[$val['CODE']] = $field;
         }
     }
@@ -62,6 +64,11 @@ Class IcrForms {
     function loadDataFields()
     {
         $this->dataFields = $this->Model->getDataFields();
+    }
+    
+    function loadRefFieldList($typeid)
+    {
+        return $this->Model->client->getRefList($typeid);
     }
 
     function getFieldsList()
@@ -75,19 +82,13 @@ Class IcrForms {
         return $this->$name;
     }
 
-    public function buildForms($params = null, $types = null, $useforms = false)
+    public function buildForms($params = null, $types = null)
     {
         $html = '';
-        $html .= $useforms ? '<form method="post" action="/index.php?r=site/entry" id="w0">' : '';
-
+        
         foreach($this->fields as $val){
             $html .= $val->build($params, $types);
         }
-
-        $html .= $useforms ? '</form>' : '';;
-
-        $html .= $useforms ? '<div class="form-group">
-        <button class="btn btn-primary" type="submit">Отправить</button></div>' : '';
 
         return $html;
     }

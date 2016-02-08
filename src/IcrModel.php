@@ -16,7 +16,7 @@ class IcrModel {
         $this->IcrForms = new \wdst\IcrForms\IcrForms(new JsonModel('http://api.json/index.php'), $formCode);
     }
 
-    public function getFieldList()
+    public function getFieldsList()
     {
         return $this->IcrForms->getFieldsList();
     }

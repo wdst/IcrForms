@@ -45,7 +45,7 @@ class IcrFormField {
             $this->builder->types = $types;
         }
 
-        $this->html = $this->builder->buildHtml($this->attrs['ATTR_CLASS'], $this->val);
+        $this->html = $this->builder->buildHtml($this->attrs['ATTR_CLASS'], $this->attrs);
         return $this->html;
     }
 }

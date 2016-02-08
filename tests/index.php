@@ -16,11 +16,12 @@ spl_autoload_register(function ($class) {
 });
 
 
-$IcrForms = new wdst\IcrForms\IcrForms(new wdst\IcrForms\Model('http://api.json/index.php'), 'reg_eburg');
+$IcrForms = new wdst\IcrForms\IcrForms(new wdst\IcrForms\JsonModel('http://api.json/index.php'), 'registration_nn');
 
 
 //print_r($IcrForms->getFieldsList());
-//print_r($IcrForms->fields);
+//print_r($IcrForms->fields['sex']);
+print_r($IcrForms->buildForms());
 
-print_r($IcrForms->dataFields);
+//print_r($IcrForms);
 
