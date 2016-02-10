@@ -11,7 +11,7 @@ Class IcrForms {
 
     public $fields;
     public $params = null;
-    public $types = null;
+    public $types = null;public $test = null;
 
     public function __construct(AbstractIcrModel $IcrModel, $formCode)
     {
@@ -28,7 +28,7 @@ Class IcrForms {
         $this->loadFields();
     }
 
-    function loadForm()
+    public function loadForm()
     {
         $data = $this->Model->getForm($this->code);
 
@@ -43,7 +43,7 @@ Class IcrForms {
         };
     }
 
-    function loadFields()
+    public function loadFields()
     {
         $data = $this->Model->getFormFields($this->OBJ_ID);
 
@@ -61,7 +61,7 @@ Class IcrForms {
         }
     }
 
-    function loadDataFields()
+    public function loadDataFields()
     {
         $this->dataFields = $this->Model->getDataFields();
     }

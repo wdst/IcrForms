@@ -16,12 +16,18 @@ spl_autoload_register(function ($class) {
 });
 
 
-$IcrForms = new wdst\IcrForms\IcrForms(new wdst\IcrForms\JsonModel('http://api.json/index.php'), 'registration_nn');
+//$IcrForms = new wdst\IcrForms\IcrForms(new wdst\IcrForms\JsonModel('http://api.json/index.php'), 'registration_nn');
 
 
 //print_r($IcrForms->getFieldsList());
 //print_r($IcrForms->fields['sex']);
-print_r($IcrForms->buildForms());
+//print_r($IcrForms->buildForms());
 
 //print_r($IcrForms);
+$model = new wdst\IcrForms\JsonModel('http://api.json/index.php');
+$IcrStepForms = new wdst\IcrForms\IcrStepForms($model, 'participant_reg_member');
+$form  = $IcrStepForms->getForm(3);
+print_r($form);
+$IcrForms = new wdst\IcrForms\IcrForms($model, $form['CODE']);
 
+print_r($IcrForms->getFieldsList());

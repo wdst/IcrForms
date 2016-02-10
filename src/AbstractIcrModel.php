@@ -18,6 +18,11 @@ abstract class AbstractIcrModel {
         return $this->client->getForm($code);
     }
 
+    public function getStepForm($code)
+    {
+        return $this->client->getStepForm($code);
+    }
+
     public function getFormFields($form_id)
     {
         return $this->client->getFormFields($form_id);
