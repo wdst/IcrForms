@@ -2,39 +2,17 @@
 
 namespace wdst\IcrForms;
 
-/**
- * Description of AbstractModel
- *
- * @author wds
- */
-abstract class AbstractIcrModel {
+use JsonRPC\Client as JsonRPCClient;
 
-    public $client;
-    
-    abstract public function save();
+abstract class AbstractIcrModel{
 
-    public function getForm($code)
-    {
-        return $this->client->getForm($code);
-    }
+    public $Model;
 
-    public function getStepForm($code)
-    {
-        return $this->client->getStepForm($code);
-    }
+    abstract public function getScenario($scenarioCode);
 
-    public function getFormFields($form_id)
-    {
-        return $this->client->getFormFields($form_id);
-    }
+    abstract public function getForms($scenarioCode);
 
-    public function getDataFields()
-    {
-        return $this->client->getDataFields();
-    }
+    abstract public function getFields($id);
 
-    public function object($obj)
-    {
-        return $this->client->object(json_encode($obj));
-    }
+    abstract public function getRefList($REF_TO_OBJ_TYPE_ID);
 }

@@ -2,47 +2,34 @@
 
 namespace wdst\IcrForms;
 
-class IcrModel {
+use JsonRPC\Client as JsonRPCClient;
 
-    public $IcrForms, $url, $formCode, $method = 'post';
-    public $params = [
-        'lang' => 'ru'
-    ];
+Class IcrModel extends AbstractIcrModel{
 
-    public function __construct(AbstractIcrModel $model, $formCode, $url)
+    public $Model;
+
+    public function __construct($url)
     {
-        $this->formCode = $formCode;
-        $this->url = $url;
-        $this->IcrForms = new \wdst\IcrForms\IcrForms(new JsonModel('http://api.json/index.php'), $formCode);
+        $this->Model = new JsonRPCClient($url);
     }
 
-    public function getFieldsList()
+    public function getScenario($scenarioCode)
     {
-        return $this->IcrForms->getFieldsList();
+        return $this->Model->getStepFormOnly($scenarioCode);
     }
 
-    public function begin()
+    public function getForms($scenarioCode)
     {
-        return '<form method="'.$this->method.'" action="'.$this->url.'" id="'.$this->formCode.'">';
+        return $this->Model->getForms($scenarioCode);
     }
 
-    public function end()
+    public function getFields($id)
     {
-        return '</form>';
+        return $this->Model->getFields($id);
     }
 
-    public function buildForms($params = null)
+    public function getRefList($REF_TO_OBJ_TYPE_ID)
     {
-        $this->setParams($params);
-        return $this->IcrForms->buildForms($this->params);
-    }
-
-    public function setParams($params)
-    {
-        if(!is_null($params) && is_array($params)){
-            foreach ($params as $key => $value) {
-                $this->params[$key] = $value;
-            }
-        }
+        return $this->Model->getRefList($REF_TO_OBJ_TYPE_ID);
     }
 }
