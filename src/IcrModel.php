@@ -2,34 +2,59 @@
 
 namespace wdst\IcrForms;
 
-use JsonRPC\Client as JsonRPCClient;
+class IcrModel {
 
-Class IcrModel extends AbstractIcrModel{
+    public $IcrForms, $url, $formCode, $Scenario, $fabric, $method = 'post';
+    public $params = [
+        'lang' => 'ru'
+    ];
 
-    public $Model;
-
-    public function __construct($url)
+    public function __construct(AbstractIcrModel $model, $formCode)
     {
-        $this->Model = new JsonRPCClient($url);
+        $this->formCode = $formCode;
+        
+        $this->fabric = new IcrFabric($model);
+        
+        $this->Scenario = $this->fabric->getScenario($formCode);
+
+        //$this->IcrStepForms = new \wdst\IcrForms\IcrForms($model, $formCode);
     }
 
-    public function getScenario($scenarioCode)
+    public function getForm($step)
     {
-        return $this->Model->getStepFormOnly($scenarioCode);
+        $step -= $step;
+        $code = $this->Scenario->formList[$step];
+        $this->IcrForms = $this->Scenario->forms[$code];
+        return $this->IcrForms;
+    }
+    
+    public function getFieldsList()
+    {
+        return $this->IcrForms->getFieldsList();
     }
 
-    public function getForms($scenarioCode)
+    public function begin()
     {
-        return $this->Model->getForms($scenarioCode);
+        return '<form method="'.$this->method.'" action="'.$this->url.'" id="'.$this->formCode.'">';
     }
 
-    public function getFields($id)
+    public function end()
     {
-        return $this->Model->getFields($id);
+        return '</form>';
     }
 
-    public function getRefList($REF_TO_OBJ_TYPE_ID)
+    public function buildForms($params = null)
     {
-        return $this->Model->getRefList($REF_TO_OBJ_TYPE_ID);
+        $this->setParams($params);
+        return $this->IcrForms->buildForms($this->params);
+    }
+
+    public function setParams($params)
+    {
+        if(!is_null($params) && is_array($params)){
+            foreach ($params as $key => $value) {
+                $this->params[$key] = $value;
+            }
+        }
     }
 }

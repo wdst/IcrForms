@@ -13,25 +13,49 @@ Class IcrFabric {
 
     public function getScenario($ScenarioCode)
     {
-        $data = $this->Model->getScenario($ScenarioCode);
+        $data = $this->Model->getStepFormOnly($ScenarioCode);
 
         $Scenario = new IcrScenario(isset($data[0]) ? $data[0] : $data);
+        
+        $Scenario->formList = array_keys($this->getFormList($ScenarioCode));
+        
         $Scenario->setForms($this->getForms($ScenarioCode));
         return $Scenario;
     }
 
+    public function getFormList($ScenarioCode)
+    {
+        $data = $this->Model->getScenario($ScenarioCode);
+        $forms = [];
+        foreach ($data as $val){
+            $forms[$val['CODE']] = $val;
+        }
+        return $forms;
+    }
+
+    public function getForm($code)
+    {
+        $data = $this->Model->getForm($code);
+        $forms = [];
+        foreach ($data as $val){
+            $forms[] = $this->getIcrForm($val);
+            $forms[]->fields = $this->getFields($val['OBJ_ID']);
+        }
+        return $forms;
+    }
+    
     public function getForms($ScenarioCode)
     {
         $formsdata = $this->Model->getForms($ScenarioCode);
         $forms = [];
         foreach ($formsdata as $val){
-            $forms[$val['CODE']] = $this->getForm($val);
+            $forms[$val['CODE']] = $this->getIcrForm($val);
             $forms[$val['CODE']]->fields = $this->getFields($val['OBJ_ID']);
         }
         return $forms;
     }
 
-    private function getForm($data)
+    private function getIcrForm($data)
     {
         return new IcrForm($data);
     }

@@ -27,4 +27,9 @@ Class IcrForm {
             }
         }
     }
+    
+    public function getFieldList()
+    {
+        return array_keys($this->fields);
+    }
 }

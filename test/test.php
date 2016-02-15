@@ -16,38 +16,17 @@ spl_autoload_register(function ($class) {
     }
 });
 
-
-
-
-/*Class ReferenceList {
-    
-    public $obj_id;
-    public $obj_type_id;
-    public $obj_caption;
-    public $ot_code;
-    public $rus;
-    public $eng;
-    
-    public function __construct($data)
-    {
-        $property = [
-            'obj_id', 'obj_type_id', 'obj_caption', 'ot_code', 'rus', 'eng'
-        ];
-
-        foreach($property as $val){
-            if(property_exists($this, $val)){
-                $this->$val = $data[strtoupper($val)];
-            }
-        }
-    }
-}*/
+use wdst\IcrForms\JsonModel as JsonModel;
+use wdst\IcrForms\IcrModel as IcrModel;
+use wdst\IcrForms\IcrFabric as IcrFabric;
 
 $start = microtime(true);
 
 
-$fabric = new wdst\IcrForms\IcrFabric(new wdst\IcrForms\IcrModel('http://api.json/index.php'));
 
-$scenario = $fabric->getScenario('participant_reg_member');
+//$fabric = new wdst\IcrForms\IcrFabric(new wdst\IcrForms\JsonModel('http://api.json/index.php'));
+
+//$scenario = $fabric->getScenario('participant_reg_member');
 //$forms = (new Model())->getForms('participant_reg_member');
 
 //$forms = $fabric->getForms('participant_reg_member');
@@ -56,7 +35,19 @@ $scenario = $fabric->getScenario('participant_reg_member');
 //$fields = $fabric->getFields(168770);
 //print_r($fields);
 
+$jsonmodel = new JsonModel('http://api.json/index.php');
+$model = new IcrModel($jsonmodel, 'participant_reg_member');
 
+
+$fabric = new IcrFabric($jsonmodel);
+
+$scenario = $fabric->getScenario('participant_reg_member');
+
+//$form = $fabric->getForm($scenario->formList[0]);
+
+$form = $model->getForm(1);
+
+print_r($form);
 
 $end = microtime(true);
 $time = $end - $start;
