@@ -7,6 +7,7 @@ Class IcrField {
     public $code;
     public $obj_id;
     public $obj_type_id;
+    public $obj_type_code;
     public $attr_id_lkp;
     public $title;
     public $title_eng;
@@ -17,6 +18,8 @@ Class IcrField {
     public $type_id;
     public $attr_class;
     public $ref_to_obj_type_id;
+    public $value;
+    public $obj;
     
     public $refList;
 
@@ -25,7 +28,7 @@ Class IcrField {
         $property = [
             'code', 'obj_id', 'obj_type_id', 'attr_id', 'attr_id_lkp',
             'title', 'title_eng', 'is_required', 'placeholder', 'help_text',
-            'weight', 'type_id', 'attr_class', 'ref_to_obj_type_id'
+            'weight', 'type_id', 'attr_class', 'ref_to_obj_type_id', 'obj_type_code'
         ];
 
         foreach($property as $val){
@@ -33,5 +36,7 @@ Class IcrField {
                 $this->$val = $data[strtoupper($val)];
             }
         }
+
+        $this->obj = $this->obj_type_code . '.' . $this->obj_id;
     }
 }

@@ -10,22 +10,22 @@ Class JsonModel extends AbstractIcrModel{
     public function __construct($url, $timeout = 3, $headers  = array()) {
         $this->Model = new JsonRPCClient($url, $timeout, $headers);
     }
-    
+
     public function getStepFormOnly($scenarioCode)
     {
         return $this->Model->getStepFormOnly($scenarioCode);
     }
-    
+
     public function getScenario($scenarioCode)
     {
         return $this->Model->getScenario($scenarioCode);
     }
-    
+
     public function getForm($code)
     {
         return $this->Model->getForm($code);
     }
-    
+
     public function getForms($scenarioCode)
     {
         return $this->Model->getForms($scenarioCode);
@@ -39,5 +39,15 @@ Class JsonModel extends AbstractIcrModel{
     public function getRefList($REF_TO_OBJ_TYPE_ID)
     {
         return $this->Model->getRefList($REF_TO_OBJ_TYPE_ID);
+    }
+
+    public function setSaveStepForm($guid, $code, $step, $key, $val)
+    {
+        return $this->Model->setSaveStepForm($guid, $code, $step, $key, $val);
+    }
+
+    public function getValue($guid, $code, $step)
+    {
+        return $this->Model->getValue($guid, $code, $step);
     }
 }

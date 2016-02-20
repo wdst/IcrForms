@@ -19,7 +19,7 @@ Class IcrFabric {
         
         $Scenario->formList = array_keys($this->getFormList($ScenarioCode));
         
-        $Scenario->setForms($this->getForms($ScenarioCode));
+        //$Scenario->setForms($this->getForms($ScenarioCode));
         return $Scenario;
     }
 
@@ -36,10 +36,9 @@ Class IcrFabric {
     public function getForm($code)
     {
         $data = $this->Model->getForm($code);
-        $forms = [];
-        foreach ($data as $val){
-            $forms[] = $this->getIcrForm($val);
-            $forms[]->fields = $this->getFields($val['OBJ_ID']);
+        foreach($data as $val){
+            $forms = $this->getIcrForm($val);
+            $forms->fields = $this->getFields($val['OBJ_ID']);
         }
         return $forms;
     }
@@ -83,4 +82,5 @@ Class IcrFabric {
     {
         return $this->Model->getRefList($REF_TO_OBJ_TYPE_ID);
     }
+
 }

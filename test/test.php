@@ -36,18 +36,34 @@ $start = microtime(true);
 //print_r($fields);
 
 $jsonmodel = new JsonModel('http://api.json/index.php');
-$model = new IcrModel($jsonmodel, 'participant_reg_member');
+//$model = new IcrModel($jsonmodel, 'participant_reg_member');
 
 
 $fabric = new IcrFabric($jsonmodel);
 
-$scenario = $fabric->getScenario('participant_reg_member');
 
-//$form = $fabric->getForm($scenario->formList[0]);
+//$form = $fabric->getScenario('participant_reg_member');
 
-$form = $model->getForm(1);
+//$scenario = $fabric->getScenario('participant_reg_member');
 
-print_r($form);
+//$form = $fabric->getForm('member_personal_info');
+
+//$form = $model->getForm(1);
+$data = $jsonmodel->getStepsForm('m0iihcr227pnge6j2j7qg8k6h6', 'participant_reg_member');
+print_r($data);
+
+$groups = [];
+foreach($data as $val){
+    $obj = explode('.', $val['OBJ']);
+    if(!empty($obj[0])){
+        $val['OBJ_ID'] = $obj[1];
+        $groups[$obj[0]][] = $val;
+    }
+}
+print_r(array_keys($groups));
+
+
+
 
 $end = microtime(true);
 $time = $end - $start;
@@ -58,3 +74,4 @@ print "Время выполнения скрипта $time секунд".PHP_EO
 /*$fields = $fabric->getFields(168770);
 
 print_r($fields['photo']->title);*/
+
